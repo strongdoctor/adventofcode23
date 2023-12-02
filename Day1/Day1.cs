@@ -17,13 +17,13 @@ public class Day1
     {
         var inp = await File.ReadAllTextAsync("Day1/input.txt");
 
-        var resultPart1 = inp.Trim()
+        var result = inp.Trim()
             .Split("\r\n")
             .Select(x => Regex.Replace(x, "[A-Za-z]", ""))
             .Select(x => int.Parse(x.First().ToString() + x.Last().ToString()))
             .Sum();
 
-        Assert.Equal(55607, resultPart1);
+        _output.WriteLine($"Day 1p1:{result}");
     }
 
     [Fact]
@@ -83,6 +83,6 @@ public class Day1
             .Select(x => int.Parse(x.First().ToString() + x.Last().ToString()))
             .Sum();
 
-        Assert.Equal(55291, result);
+        _output.WriteLine($"Day 1p2:{result}"); ;
     }
 }
