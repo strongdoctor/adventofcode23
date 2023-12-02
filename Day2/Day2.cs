@@ -24,9 +24,9 @@ public class Day2
 
         var gameCubes = new Dictionary<string, int>()
         {
-            {"red", 12 },
-            {"green", 13 },
-            {"blue", 14 }
+            { "red", 12 },
+            { "green", 13 },
+            { "blue", 14 }
         };
 
         var possibleGames = games.Where(game =>
@@ -72,7 +72,10 @@ public class Day2
             {
                 foreach (var setColor in set)
                 {
-                    if (!gameMinReq.ContainsKey(setColor.Key) || gameMinReq[setColor.Key] < setColor.Value)
+                    if (
+                        !gameMinReq.ContainsKey(setColor.Key)
+                        || gameMinReq[setColor.Key] < setColor.Value
+                    )
                     {
                         gameMinReq[setColor.Key] = setColor.Value;
                     }
@@ -82,7 +85,16 @@ public class Day2
             minReqPerGame[game.Id] = gameMinReq;
         }
 
-        var gamePowers = minReqPerGame.Select(gameReq => new KeyValuePair<int, int>(gameReq.Key, gameReq.Value.Values.Aggregate((x, y) => x * y))).Select(x => x.Value).Sum();
+        var gamePowers = minReqPerGame
+            .Select(
+                gameReq =>
+                    new KeyValuePair<int, int>(
+                        gameReq.Key,
+                        gameReq.Value.Values.Aggregate((x, y) => x * y)
+                    )
+            )
+            .Select(x => x.Value)
+            .Sum();
 
         _output.WriteLine($"Day 2p2:{gamePowers}");
     }
@@ -93,19 +105,25 @@ public class Day2
         {
             var split = line.Split(":");
             var gameId = Regex.Replace(split[0], "Game ", "");
-            var sets = split[1].Trim().Split(";").Select(set =>
-            {
-                var dict = new Dictionary<string, int>();
-                // e.g. "3 blue, 4 red"
-                set.Split(",").Select(x => x.Trim()).ToList().ForEach(x =>
+            var sets = split[1]
+                .Trim()
+                .Split(";")
+                .Select(set =>
                 {
-                    var splitCube = x.Split(" ");
+                    var dict = new Dictionary<string, int>();
+                    // e.g. "3 blue, 4 red"
+                    set.Split(",")
+                        .Select(x => x.Trim())
+                        .ToList()
+                        .ForEach(x =>
+                        {
+                            var splitCube = x.Split(" ");
 
-                    dict.Add(splitCube[1], int.Parse(splitCube[0]));
+                            dict.Add(splitCube[1], int.Parse(splitCube[0]));
+                        });
+
+                    return dict;
                 });
-
-                return dict;
-            });
             return new Game(int.Parse(gameId), sets.ToList());
         });
 

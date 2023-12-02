@@ -58,7 +58,6 @@ public class Day1
                 {
                     var currStr = x[idx..endIdx];
 
-
                     if (endIdx - idx == 1 && int.TryParse(currStr, out _))
                     {
                         numbaz.Add(currStr);
@@ -83,6 +82,7 @@ public class Day1
             .Select(x => int.Parse(x.First().ToString() + x.Last().ToString()))
             .Sum();
 
-        _output.WriteLine($"Day 1p2:{result}"); ;
+        _output.WriteLine($"Day 1p2:{result}");
+        ;
     }
 }
