@@ -3,11 +3,11 @@ using Xunit.Abstractions;
 
 namespace adventofcode23.Day1;
 
-public class AdventOfCode23
+public class Day1
 {
     private readonly ITestOutputHelper _output;
 
-    public AdventOfCode23(ITestOutputHelper output)
+    public Day1(ITestOutputHelper output)
     {
         _output = output;
     }
